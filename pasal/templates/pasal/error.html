@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block firmactive %}active{% endblock firmactive %}
+{% block title %}Our Firms{% endblock title %}
+{% block css %}
+.som{
+    color:black;
+    font-size:1.5vw;
+  }
+  .social_media a{
+  text-decoration:none;
+}
+
+.footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 10vh;
+  border-top: 1px solid #a5a4a4;
+}
+{% endblock %}
+{% block body %}
+<div class="container text-center">
+    <img class="img-fluid mx-auto d-block" src="{% static 'pasal/error.svg' %}" alt="No search results" style="max-width: 36%; height: auto;">
+    <h3>We couldn't find any items that match your search.</h3>
+</div>    {% endblock body %}
+    {% block js %}
+    
+    {% endblock js %}

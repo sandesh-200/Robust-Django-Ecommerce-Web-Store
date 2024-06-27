@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+{% load static %}
+{% block homeactive %}active{% endblock homeactive %}
+{% block title %}Home{% endblock title %}
+
+{% block css %}
+.c-item {
+  height: 500px;
+}
+
+.c-img {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.carousel-fade {
+  width: 100%;
+  height: 75vh;
+}
+
+.flash {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+.more {
+  font-size: 1.6vw;
+  text-decoration: none !important;
+}
+
+.card {
+  max-width: 190px;
+  background: white;
+  padding: .4em;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-image {
+  background-color: rgb(236, 236, 236);
+  width: 100%;
+  height: 130px;
+  border-radius: 6px 6px 0 0;
+}
+
+.card-image:hover {
+  transform: scale(0.98);
+}
+
+.category {
+  text-transform: uppercase;
+  font-size: 0.7em;
+  font-weight: 600;
+  color: rgb(63, 121, 230);
+  padding: 10px 7px 0;
+}
+
+.category:hover {
+  cursor: pointer;
+}
+
+.heading {
+  font-weight: 600;
+  color: rgb(88, 87, 87);
+  padding: 7px;
+}
+
+.heading:hover {
+  cursor: pointer;
+}
+
+.author {
+  color: gray;
+  font-weight: 400;
+  font-size: 11px;
+  padding-top: 20px;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.name:hover {
+  cursor: pointer;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cat_img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.see_more {
+  text-decoration: none !important;
+  color: black;
+}
+
+.card_thing, a {
+  text-decoration: none !important;
+  color: black;
+}
+
+.recom_items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.recom_img {
+  height: 300px; /* Adjust height as needed */
+  width: 70%; /* Adjust image width as needed */
+  border-radius: 10px;
+}
+
+.margin-adjust {
+  margin-top: -3rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 576px) {
+  .carousel-fade {
+    height: 50vh; /* Adjust carousel height for small devices */
+  }
+  .margin-adjust {
+    margin-top: -2rem;
+  }
+  .card-img-top, .cat_img {
+    height: 150px; /* Adjust image height for small devices */
+  }
+  .card-body {
+    height: auto; /* Let the height adjust based on content */
+  }
+  .flash, .prod_part_2 .row, .container-centered .row {
+    justify-content: center;
+  }
+  .card {
+    max-width: 100%; /* Allow cards to take full width on small devices */
+  }
+}
+{% endblock css %}
+
+{% block body %}
+<div class="container mt-5">
+  <div id="carouselExample" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active c-item">
+        <img src="{% static 'pasal/sale1.png' %}" class="d-block w-100 c-img" alt="Slide 1">
+        <div class="carousel-caption d-none d-md-block">
+          <button class="btn btn-info btn-lg">Shop Now!</button>
+        </div>
+      </div>
+      <div class="carousel-item c-item">
+        <img src="{% static 'pasal/sale2.png' %}" class="d-block w-100 c-img" alt="Slide 2">
+        <div class="carousel-caption d-none d-md-block">
+          <button class="btn btn-info btn-lg">Shop Now!</button>
+        </div>
+      </div>
+      <div class="carousel-item c-item">
+        <img src="{% static 'pasal/sale3.png' %}" class="d-block w-100 c-img" alt="Slide 3">
+        <div class="carousel-caption d-none d-md-block">
+          <button type="button" class="btn btn-info btn-lg">Shop Now!</button>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="prod_part_1 container margin-adjust">
+    <div class="timer">
+      <h1 class="mt-3 mx-5 my-2">From Our Mall</h1>
+    </div>
+    <div class="flash container mt-4 w-100%">
+      <div class="row justify-content-center">
+        {% for prod in products|slice:":8" %}
+        <div class="col-sm-6 col-md-4 col-lg-3 my-3 d-flex align-items-stretch">
+          <div class="card" style="width: 100%;">
+            <a id="prod{{ prod.id }}" href="/product/{{ prod.id }}">
+              <img src="/media/{{prod.product_img}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title card_thing">{{ prod.product_name|truncatewords:6 }}</h5>
+                <p class="card-text card_thing">{{ prod.product_desc|truncatechars:8 }}</p>
+              </div>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="text-center my-4">
+        <a href="{% url 'pasal_collection' %}" class="see_more"><i class="ri-arrow-right-double-line more"></i>Shop More</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container prod_part_2 my-5">
+    <h1 class="text-center mb-4">Categories</h1>
+    <div class="row justify-content-center">
+      {% for category, image_url in category_images.items %}
+      <div class="col-md-4 mb-4 d-flex align-items-stretch">
+        <a href="/category_items/{{ category }}" class="card_link">
+          <div class="card">
+            <img src="{{ image_url }}" alt="{{ category }}" class="card-img-top cat_img">
+            <div class="card-body">
+              <h5 class="card-title text-center">{{ category }}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  
+</div>
+{% endblock body %}
+
+{% block js %}
+<!-- Add any JavaScript here if needed -->
+{% endblock js %}

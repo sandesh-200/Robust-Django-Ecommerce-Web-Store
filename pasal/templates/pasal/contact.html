@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block contactactive %}active{% endblock contactactive %}
+{% block title %}Contact{% endblock title %}
+{% block css %}
+.som{
+    color:black;
+    font-size:1.5vw;
+}
+.social_media a{
+    text-decoration:none;
+}
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 10vh;
+    border-top: 1px solid #a5a4a4;
+}
+{% endblock %}
+{% block body %}
+<div class="container my-4">
+<h1>Contact</h1>
+<form method="post">
+    {% csrf_token %}
+    {% render_field form.name placeholder="Name" class+="form-control my-4" %}
+    {% render_field form.email placeholder="Email" class+="form-control my-4" %}
+    {% render_field form.message placeholder="Your Message" class+="form-control my-4" %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+    {% endblock body %}
+    {% block js %}
+    
+    {% endblock js %}

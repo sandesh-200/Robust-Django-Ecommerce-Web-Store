@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block aboutactive %}active{% endblock aboutactive %}
+{% block title %}About{% endblock title %}
+{% block css %}
+.aboutus{
+    text-align:justify;
+}
+
+.section{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.section2{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;;
+    gap:4;
+}
+
+.aboutimg{
+    width:33%;
+    border-radius:20px;
+}
+
+{% endblock css %}
+
+
+{% block body %}
+
+    <div class="container my-5">
+        <h1 class="text-center">Our Story</h1>
+        <div class="section px-2">
+        <div class="section1">
+            <p class="aboutus">Wer'e more than just an online store – we're your ultimate shopping destination. Our mission is to bring joy and convenience to your life by offering a wide range of high-quality products at affordable prices.With a passion for innovation and customer satisfaction, we've curated a diverse collection of items that cater to your every need and desire. From fashion-forward apparel to cutting-edge electronics, home essentials, and beyond, we've got something for everyone.What sets us apart is our relentless commitment to excellence. We handpick each product to ensure it meets our strict standards of quality, durability, and style. We believe that every purchase should be a seamless and enjoyable experience, which is why we prioritize fast shipping, secure transactions, and exceptional customer support.
+                
+            As a team of dedicated professionals, we're here to serve you. Whether you have a question about a product, need assistance with your order, or simply want to share feedback, we're always just a click away.</p>
+            </div>
+            <div class="section2">
+                <img class="mx-2 aboutimg" src="{% static 'pasal/abooutimg1.jpg' %}" alt="" srcset="">
+                <img class="mx-2 aboutimg" src="{% static 'pasal/aboutimg2.jpg' %}" alt="" srcset="">
+                <img class="mx-2 aboutimg" src="{% static 'pasal/aboutimg3.jpg' %}" alt="" srcset="">
+    </div>
+</div>
+    </div>
+
+
+
+    {% endblock body %}

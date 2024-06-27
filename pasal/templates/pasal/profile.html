@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% block firmactive %}active{% endblock firmactive %}
+{% block title %}Profile{% endblock title %}
+{% block css %}
+.update_btn{
+  display:none;
+}
+.som {
+    color: black;
+    font-size: 1.5vw;
+}
+.social_media a {
+    text-decoration: none;
+}
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 10vh;
+    border-top: 1px solid #a5a4a4;
+}
+.custom-file-input {
+    display: none;
+}
+.custom-file-label {
+    display: inline-block;
+    margin-top: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+.profile-image {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.image_status{
+  display:none;
+}
+{% endblock %}
+{% block body %}
+{% if user.is_authenticated %}
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" class="d-block mx-lg-auto img-fluid profile-image" alt="Profile Picture" loading="lazy">
+            {% else %}
+                <img src="default-profile-picture.png" class="d-block mx-lg-auto img-fluid profile-image" alt="Default Profile Picture" loading="lazy">
+            {% endif %}
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">{{ f_name }} {{ l_name }}</h1>
+            <p class="lead">{{ user.username }}</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="profile_image" class="custom-file-label">Choose Profile Image</label>
+                    <input type="file" class="custom-file-input" id="profile_image" name="profile_image">
+                </div>
+                <p class="image_status"></p>
+                <button type="submit" class="btn btn-primary update_btn">Update</button>
+            {% if profile_image %}
+          <button type="submit" class="btn btn-sm btn-primary"><a style="color:white; text-decoration:none;" href="{% url 'pasal_remove_pic' %}">Remove Profile Image</a></button>
+          {% endif %}
+
+            </form>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container text-center">
+    <img class="img-fluid mx-auto d-block" src="{% static 'pasal/error404.svg' %}" alt="No search results" style="max-width: 36%; height: auto;">
+    <h1>Page Not Found</h1>
+</div>
+{% endif %}
+{% endblock body %}
+{% block js %}
+<script>
+document.getElementById('profile_image').addEventListener('change', function(event) {
+  const selectedFile = event.target.files[0];
+  if (selectedFile) {
+    
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const imageStatusElement = document.querySelector(".image_status")
+    if(!validImageTypes.includes(selectedFile.type)){
+      imageStatusElement.style.color = "red"
+      imageStatusElement.style.display = "block";
+      imageStatusElement.innerHTML = "Invalid file type"
+      return
+    }
+      document.getElementsByClassName("custom-file-label")[0].style.display = "none"
+      document.getElementsByClassName("update_btn")[0].style.display = "block"
+      imageStatusElement.style.color = "green"
+      imageStatusElement.innerHTML = "File Choosen Successfully!"
+      imageStatusElement.style.display = "block"
+  }
+});
+</script>
+{% endblock js %}

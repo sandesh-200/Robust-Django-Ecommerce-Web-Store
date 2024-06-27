@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% block firmactive %}active{% endblock firmactive %}
+{% block title %}Our Firms{% endblock title %}
+{% block css %}
+<style>
+.som {
+    color: black;
+    font-size: 1.5vw;
+}
+.social_media a {
+    text-decoration: none;
+}
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 10vh;
+    border-top: 1px solid #a5a4a4;
+}
+.card_holder {
+    margin-bottom: 1rem;
+}
+.prod_img {
+    height: 200px; 
+}
+.prod_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+.card_thing {
+    text-align: center;
+}
+</style>
+{% endblock %}
+{% block body %}
+{% if products %}
+<h1 class="text-center my-4">Search results for {{ query }}</h1>
+<div class="flash container mt-4 w-100 my-5">
+    <div class="row">
+        {% for product in products|slice:":8" %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+            <div class="card_holder">
+                <div class="card">
+                    <div class="prod_img">
+                        <a id="product{{ product.id }}" href="/product/{{ product.id }}">
+                            <img src="/media/{{ product.product_img }}" class="card-img-top" alt="...">
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title card_thing">{{ product.product_name|truncatewords:3 }}</h5>
+                        <p class="card-text card_thing">{{ product.product_desc }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="container text-center">
+    <img class="img-fluid mx-auto d-block" src="{% static 'pasal/nosearch.jpg' %}" style="max-width: 36%; height: auto;">
+    <h3>We couldn't find any items that match your search.</h3>
+</div>
+{% endif %}
+{% endblock body %}
+{% block js %}
+{% endblock js %}
