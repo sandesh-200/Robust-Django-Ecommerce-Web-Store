@@ -26,7 +26,7 @@ Installation
 
 To get a local copy up and running, follow these simple steps.
 
-1.  git clone https://github.com/your-username/your-repo-name.git
+1.  git clone https://github.com/sandesh-200/Robust-Django-Ecommerce-Web-Store.git
     
 2.  pip install -r requirements.txt
     
